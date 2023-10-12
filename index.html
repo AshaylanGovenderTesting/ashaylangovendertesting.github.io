@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Sheets Form</title>
+</head>
+<body>
+    <form id="response-form">
+        <!-- Add your form fields here -->
+        <input type="text" name="name" placeholder="Name">
+        <input type="email" name="email" placeholder="Email">
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script>
+        const form = document.getElementById('response-form');
+        form.addEventListener('submit', submitForm);
+    
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            const formData = new FormData(form);
+    
+            fetch('https://script.google.com/macros/s/AKfycbyVvEQ0uqSTz4lapJySD5FduXtOxhf6E1lfvCweDSeiNk-FDPZiSNOr8luIgkZKypCM/exec'), {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Handle the response from the Google Apps Script
+                console.log(data);
+                // You can provide feedback to the user here
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error(error);
+            });
+        }
+    </script>    
+</body>
+</html>
